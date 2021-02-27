@@ -21,6 +21,7 @@ $ cmake --install build --prefix <Path to install>
 Requirement
 -----------
 * cmake
+* boost program\_options
 * drvfpgasoc
 * libfpgasoc
 
