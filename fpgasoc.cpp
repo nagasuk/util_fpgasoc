@@ -52,8 +52,6 @@ int main(int argc, const char * const * const argv)
 
 	astat = analArg(argc, argv);
 
-	util_fpgasoc::CmdFnct::setProgInfo(execName, util_fpgasoc::version);
-
 	if (astat == ArgStatus::valid) {
 		bool isCmdSuccess;
 		util_fpgasoc::CmdFnct &cmd = *(cmdTbl[argv[1]]);
@@ -89,6 +87,8 @@ static ArgStatus analArg(int argc, const char * const * const argv)
 
 	execName = argv[0];
 
+	util_fpgasoc::CmdFnct::setProgInfo(execName, util_fpgasoc::version);
+
 	if (argc > (int)1) {
 		if (cmdTbl.find(argv[1]) != cmdTbl.end()) {
 			retVal = ArgStatus::valid;
@@ -109,9 +109,14 @@ static string generateHelp()
 	   << "Usage:\n"
 	   << " $ " << execName << " <Command>\n"
 	   << '\n'
-	   << "Commands List:\n"
-	   << " - " FPGASOC_READ_CMD_NAME "\n"
-	   << '\n'
+	   << "Commands List:\n";
+
+	for (auto &cpair : cmdTbl) {
+		const string &cmdname = cpair.first;
+		ss << " - " << cmdname << "\n";
+	}
+
+	ss << '\n'
 	   << "If you'd like to understand details about various commands,\n"
 	   << "type as follows and execute it.\n"
 	   << " $ " << execName << " <Command> [--help|-h]\n"
