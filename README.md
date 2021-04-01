@@ -25,3 +25,7 @@ Requirement
 * drvfpgasoc
 * libfpgasoc
 
+License
+-------
+Please see `LICENSE.md` file for details.
+
